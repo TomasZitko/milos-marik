@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miloš Marík - Osobní Trenér</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables from HERO NEW (Šoralová based) */
+        :root {
+            --hero-navy: #080b01; /* Renamed to avoid conflict if values differ, specific to hero */
+            --hero-navy-light: #060706;
+            --hero-charcoal: #000000;
+            --hero-gold: #181a16;
+            --hero-gold-light: #979797;
+            --hero-white: #ffffff;
+            --hero-off-white: #f8f8f8;
+            --hero-text-color: #2c2c2c; /* Text color from HERO NEW for its content */
+            --hero-light-gray: #979797;
+            --transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        /* Remove the old Marík variables and use hero variables throughout */
+        :root {
+            --primary-color: var(--hero-navy);
+            --primary-color-darker: var(--hero-gold);
+            --secondary-color: var(--hero-text-color);
+            --page-bg-color: var(--hero-white);
+            --card-bg-color: var(--hero-white);
+            --light-gray-border: var(--hero-gold-light);
+            --dark-gray-text: var(--hero-charcoal);
+            --white-text: var(--hero-white);
+            --text-font: 'Poppins', sans-serif;
+            --heading-font: 'Playfair Display', serif;
+            --card-bg-light-green: var(--hero-off-white);
+        }
+
+        /* General Styles from HERO NEW - Base for Hero */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* General body styles from Marík, then Hero styles will override for its parts */
+        body {
+            font-family: var(--text-font); /* Default Roboto for Marík page */
+            color: var(--secondary-color); /* Default text color for Marík page */
+            background-color: var(--page-bg-color); /* Unified background */
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Typography from HERO NEW - primarily for Hero elements */
+        .hero h1, .hero h2, .hero h3, .hero h4, .hero h5,
+        header .logo-name /* Playfair for these specific hero texts */
+        {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 1.2rem; }
+        .hero p { margin-bottom: 1.2rem; font-size: 1rem; font-family: 'Poppins', sans-serif; } /* Poppins for hero p */
+        .hero a { color: inherit; text-decoration: none; transition: var(--transition); }
+
+
+        /* Header and Navigation Styles from HERO NEW */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 20px 10px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: transparent;
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        header.scrolled {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--hero-charcoal); /* Always black */
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--hero-gold); /* Dark gray */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Poppins', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        /* Remove the white color for non-scrolled state */
+        header:not(.scrolled) .logo-name { color: var(--hero-charcoal); }
+        header:not(.scrolled) .logo-tagline { color: var(--hero-gold); }
+        header:not(.scrolled) .nav-link { color: var(--hero-charcoal); }
+        header:not(.scrolled) .language-option { color: var(--hero-charcoal); }
+
+        /* Update scrolled state colors */
+        header.scrolled .logo-name { color: var(--hero-charcoal); }
+        header.scrolled .logo-tagline { color: var(--hero-gold); }
+        header.scrolled .nav-link { color: var(--hero-charcoal); }
+        header.scrolled .language-option { color: var(--hero-charcoal); }
+
+        .nav-list { /* From HERO NEW */
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item { /* From HERO NEW */
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            color: var(--hero-charcoal);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link.active,
+        .nav-link:hover {
+            color: var(--hero-navy); /* Or a different highlight color */
+            /* Optional: Add an underline or other indicator for active/hover */
+        }
+
+
+        .language-switcher { /* From HERO NEW */
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .language-option {
+            color: var(--hero-charcoal);
+            font-size: 0.9rem;
+            opacity: 0.6;
+            margin: 0 5px;
+            transition: var(--transition);
+        }
+
+        .language-option.active,
+        .language-option:hover {
+            opacity: 1;
+            color: var(--hero-navy);
+        }
+
+        /* Button Styles from HERO NEW - for Hero CTA */
+        .hero .btn { /* Scoped to hero */
+            display: inline-block;
+            padding: 12px 32px;
+            background-color: transparent;
+            border: 1px solid var(--hero-gold); /* HERO NEW gold */
+            color: var(--hero-gold); /* HERO NEW gold */
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .hero .btn::before { /* From HERO NEW */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--hero-gold); /* HERO NEW gold */
+            transition: var(--transition);
+            z-index: -1;
+        }
+        .hero .btn:hover { color: var(--hero-navy); } /* HERO NEW hover text */
+        .hero .btn:hover::before { left: 0; }
+
+        .hero .btn-reversed { /* From HERO NEW */
+            background-color: var(--hero-gold); /* HERO NEW gold */
+            color: var(--hero-navy); /* HERO NEW text */
+            border-color: var(--hero-gold); /* Ensure border matches */
+        }
+        .hero .btn-reversed::before { background: var(--hero-navy); } /* HERO NEW navy for hover fill */
+        .hero .btn-reversed:hover { color: var(--hero-gold); border-color: var(--hero-navy); }
+
+
+        /* Hero Section Styles from HERO NEW */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 0; /* Reset padding for this specific hero */
+        }
+        .hero-container { /* From HERO NEW */
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: var(--hero-white); /* HERO NEW background */
+        }
+        .hero-content { /* From HERO NEW */
+            position: relative;
+            z-index: 2; /* Above image */
+            max-width: 50%;
+            padding: 0 5rem;
+            color: var(--hero-text-color); /* Default text color from HERO NEW */
+        }
+        .hero-subtitle { /* From HERO NEW */
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--hero-gold); /* HERO NEW gold */
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .hero-title { /* From HERO NEW */
+            color: var(--hero-navy); /* HERO NEW navy */
+            margin-bottom: 2rem;
+            font-size: 3.5rem; /* Specified in HERO NEW h1 */
+            line-height: 1.2;
+            font-family: 'Playfair Display', serif; /* Specified in HERO NEW h1 */
+        }
+        .hero-description { /* From HERO NEW */
+            color: var(--hero-text-color); /* HERO NEW text */
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            font-family: 'Poppins', sans-serif; /* Specified in HERO NEW p */
+        }
+        .hero-cta-buttons { /* From HERO NEW */
+            display: flex;
+            gap: 1rem;
+        }
+        /* HERO NEW CTA Buttons already styled with .hero .btn and .hero .btn-reversed */
+        /* Styles for .hero-cta-buttons .btn and .btn-reversed are slightly different in HERO NEW, using them: */
+         .hero-cta-buttons .btn { /* Copied from HERO NEW directly for this specific use */
+            padding: 12px 32px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px; /* This was in HERO NEW */
+            border: 1px solid var(--hero-navy); /* This was navy in HERO NEW */
+            color: var(--hero-navy); /* This was navy in HERO NEW */
+            background-color: transparent;
+        }
+        .hero-cta-buttons .btn:hover {
+            background-color: var(--hero-navy); /* This was navy in HERO NEW */
+            color: var(--hero-white); /* This was white in HERO NEW */
+        }
+        .hero-cta-buttons .btn-reversed {
+            background-color: var(--hero-navy); /* This was navy in HERO NEW */
+            color: var(--hero-white); /* This was white in HERO NEW */
+            border: 1px solid var(--hero-navy); /* Added for consistency, was none */
+        }
+        .hero-cta-buttons .btn-reversed:hover {
+            background-color: var(--hero-gold); /* This was gold in HERO NEW */
+            color: var(--hero-navy); /* This was navy in HERO NEW */
+            border-color: var(--hero-gold);
+        }
+
+
+        .hero-image { /* From HERO NEW */
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%; 
+            height: 100%;
+            z-index: 1;
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 35% 100%); /* HERO NEW clip path */
+        }
+        
+        .hero-image img { /* From HERO NEW */
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* HERO NEW specific */
+            object-position: center right; /* HERO NEW specific */
+            position: absolute; /* Added to ensure it respects clip path container */
+            top: 0;
+            left: 0;
+        }
+
+        /* Responsive for HERO NEW */
+        @media (max-width: 992px) {
+            header { padding: 20px; justify-content: space-between; }
+            .logo-name { font-size: 1.5rem; }
+            .logo-tagline { font-size: 0.65rem; }
+            header nav { display: none; } /* Basic: hide nav, burger menu needed for full mobile */
+            .language-switcher { margin-left: 0; /* Appears if nav is hidden and it's outside */ }
+
+
+            .hero-container { /* From HERO NEW */
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                /* background-color: var(--hero-white); // Already set */
+            }
+            .hero-content { /* From HERO NEW */
+                max-width: 100%; /* Was 100% */
+                padding: 2rem;
+                order: 2; /* Content below image on mobile */
+            }
+            .hero-image { /* From HERO NEW */
+                position: relative; /* Changed from absolute for flow */
+                width: 100%;
+                height: 50vh; /* Example height, adjust as needed */
+                clip-path: none; /* No clip path on smaller screens */
+                order: 1; /* Image above content */
+            }
+             .hero-image img { /* Ensure image within relative container */
+                object-fit: cover; /* Cover might be better for responsive */
+                object-position: center;
+             }
+            .hero-cta-buttons { justify-content: center; } /* From HERO NEW */
+        }
+
+        @media (max-width: 768px) {
+             /* Adjustments from HERO NEW for smaller screens */
+            .hero { min-height: 100vh; height:auto; padding-top: 80px; padding-bottom: 40px; } /* Adjust padding */
+            .hero-image { height: 40vh; } /* From HERO NEW */
+            .hero-title { font-size: 2.5rem; } /* From HERO NEW */
+            .hero-description { font-size: 1rem; } /* From HERO NEW */
+            .hero-cta-buttons { flex-direction: column; gap: 10px; align-items: center; } /* From HERO NEW */
+            .hero .btn, .hero-cta-buttons .btn { width: 100%; max-width: 300px; } /* Ensure buttons are manageable and override specific hero CTA button */
+        }
+
+
+        /* Global Styles for Marík page (from original second code, minor adjustments may be needed) */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px; /* Default padding */
+        }
+        
+        section {
+            padding: 80px 0; /* Increased padding for better spacing */
+            background-color: var(--page-bg-color); /* Unified background */
+        }
+        section:nth-child(even):not(.hero) { /* Subtle alternating background for sections if desired, but request was one color */
+           /* background-color: var(--hero-off-white); */ /* Example if slight variation is okay */
+        }
+
+        section .container {
+            padding: 0 20px; 
+        }
+
+        /* Headings for Marík sections */
+        h1, h2, h3, h4 { /* General for Marík, hero has its own */
+            font-family: var(--heading-font); /* Montserrat */
+            color: var(--dark-gray-text);
+            margin-bottom: 1.2rem;
+        }
+        
+        /* Marik global h1 (page title if any, hero handles its own) */
+        /* h1 { font-size: 2.8em; line-height: 1.2; } */
+        /* Section titles (h2) */
+        h2.section-title, h2.section-title-main { /* Common class for section titles */
+            font-family: var(--heading-font);
+            font-size: 2.2em;
+            color: var(--hero-navy);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        h3 { font-size: 1.3em; } 
+        h4 { font-size: 1.1em; font-weight: 600;} 
+
+        p { /* General for Marík, hero has its own */
+            margin-bottom: 1rem;
+            font-family: var(--text-font); /* Roboto for Marík p */
+            line-height: 1.6; /* Adjusted line height */
+            font-size: 0.95rem; /* Slightly smaller base font size */
+        }
+
+        a { /* General for Marík, hero has its own */
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+        a:hover {
+            color: var(--primary-color-darker);
+            opacity: 0.85;
+        }
+
+        /* Marík's Generic Button Styles (used in sections other than hero) */
+        .btn { 
+            font-family: var(--text-font);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding: 12px 32px;
+            border: 1px solid var(--hero-navy);
+            color: var(--hero-navy);
+            background-color: transparent;
+            transition: var(--transition);
+            display: inline-block; /* ensure it behaves as a block for sizing */
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: var(--hero-navy);
+            color: var(--hero-white);
+        }
+
+        .btn-primary {
+            background-color: var(--hero-navy);
+            color: var(--hero-white);
+            border-color: var(--hero-navy);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hero-gold);
+            color: var(--hero-navy); /* Text color change for better contrast on gold */
+            border-color: var(--hero-gold);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--hero-navy);
+            border-color: var(--hero-navy);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--hero-navy);
+            color: var(--hero-white);
+        }
+        
+        /* Horizontal Rule Style */
+        .section-divider,
+        .section-divider-strong {
+            display: none;
+        }
+
+
+        /* About Section - Styled like Sorolova (using Marík variables) */
+        .about { /* background-color already var(--page-bg-color) by section style */ }
+        .about-content {
+            display: flex;
+            align-items: stretch;
+            gap: 50px;
+        }
+        .about-text { 
+            flex: 1.2; 
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+        }
+        .about-image-container {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            background: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            border-radius: 0 !important;
+            position: relative;
+        }
+        .about-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary-color) 0%, transparent 100%);
+            opacity: 0.1;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .about-image-container img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            background: none !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+            border-radius: 8px !important;
+            display: block;
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+        .about-image-container:hover img {
+            transform: scale(1);
+        }
+
+        .about-header {
+            display: flex;
+            align-items: baseline; 
+            gap: 15px; 
+            margin-bottom: 25px; 
+        }
+        .about-number {
+            color: #e0e0e0; /* Lighter gray */
+            font-size: 3.2em; /* Reduced from 4em */
+            font-weight: 700;
+            line-height: 1;
+            font-family: var(--heading-font);
+        }
+        .about-header h2 { /* This is the section title, should match global .section-title style */
+            color: var(--primary-color); 
+            font-size: 2.2em; /* Reduced from 2.8em */
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+            font-family: var(--heading-font);
+            align-self: flex-end; 
+            text-align: left; /* Override centered section titles for this specific layout */
+        }
+        .about-description {
+            margin-bottom: 35px; 
+        }
+        .about-description p {
+            font-size: 0.95em; /* Reduced from 1.05em */
+            line-height: 1.6;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px 35px; 
+}
+.feature-item {
+    background-color: var(--hero-off-white);
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    will-change: transform, box-shadow;
+}
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.feature-icon {
+    color: var(--hero-navy);
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+.feature-icon svg, .feature-icon .fas {
+    width: 32px; 
+    height: 32px;
+    stroke-width: 1.5; 
+    font-size: 32px;
+}
+.feature-content h3 { 
+    color: var(--hero-navy); 
+    font-size: 1.15em; 
+    font-weight: 700; 
+    margin: 0 0 8px 0;
+    font-family: var(--heading-font);
+}
+.feature-content p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+/* Responsive for About Section */
+@media (max-width: 992px) {
+    .about-content { 
+        flex-direction: column; 
+        gap: 40px; 
+        align-items: center; 
+    }
+    .about-text { 
+        max-width: 100%; 
+        text-align: center; 
+    }
+    .about-header { 
+        justify-content: center; 
+    }
+    .about-header h2 { 
+        text-align: center; 
+    }
+    .about-image-container { 
+        order: -1; 
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .about-image-container img {
+        max-height: 500px;
+    }
+    .features-grid { grid-template-columns: 1fr; gap: 25px; text-align: left; max-width: 450px; margin: 0 auto; }
+    .about-header h2 { font-size: 2.2em;}
+    .about-number { font-size: 3.2em; }
+}
+@media (max-width: 768px) {
+    .about-header { flex-direction: column; text-align: center; gap: 5px; align-items: center;}
+    .about-header h2 { font-size: 1.8em; } /* Reduced from 2.2em */
+    .about-number { font-size: 2.8em; } /* Reduced from 3.5em */
+    .feature-item { flex-direction: column; align-items: center; text-align: center; } /* Stack icon and text */
+    .feature-item:hover { transform: translateY(-4px); } /* Reduced lift on mobile */
+    .feature-icon { margin-bottom: 10px; }
+    .feature-content h3 { font-size: 1.1em; }
+    .feature-content p { font-size: 0.9em; }
+}
+
+     /* Services Section - REDESIGNED */
+.services { text-align: center; }
+.services .section-title-main { /* Already styled by h2.section-title-main */ }
+.services .section-subtitle {
+    font-size: 1.1em;
+    color: var(--secondary-color);
+    max-width: 700px;
+    margin: 0 auto 50px auto; 
+    line-height: 1.7;
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 36px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.service-card {
+    position: relative;
+    min-height: 440px; /* Increased height */
+    background-size: cover;
+    background-position: center;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    transform: scale(1);
+}
+.service-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+.service-arrow {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.92;
+    transition: opacity 0.2s;
+}
+.service-card:hover .service-arrow {
+    opacity: 1;
+}
+.service-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center; /* Center horizontally */
+    padding: 0 24px 38px 24px; /* More bottom padding, less top */
+    pointer-events: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+.service-content h3 {
+    font-family: var(--heading-font);
+    font-size: 1.6em; /* Reduced from 2em */
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.service-content p {
+    font-size: 0.95em; /* Reduced from 1.08em */
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    margin-bottom: 0;
+}
+@media (max-width: 900px) {
+    .service-card { min-height: 320px; }
+    .service-content { padding: 0 10px 22px 10px; }
+    .service-content h3 { font-size: 1.3em; }
+    .service-card:hover { 
+        transform: scale(1.02);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+    }
+}
+@media (max-width: 400px) { /* Ensure cards don't get too small */
+     .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+     }
+}
+
+        /* Testimonials Section - REFINED STYLES */
+        .testimonials { /* background-color from section style */ }
+        .testimonials .section-title { /* Handled by h2.section-title */ }
+        .testimonials .section-subtitle {
+            font-size: 1.1em;
+            color: var(--secondary-color);
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+            text-align: center;
+            line-height: 1.7;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            align-items: stretch; 
+        }
+        .testimonial-card { 
+            background-color: var(--card-bg-color); 
+            border-radius: 10px; 
+            border: 1px solid var(--light-gray-border);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            display: flex; 
+            flex-direction: column; 
+            height: 100%; 
+            padding: 30px; 
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+        .testimonial-card:nth-child(1)::before {
+            background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80');
+        }
+        .testimonial-card:nth-child(2)::before {
+            background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29433?auto=format&fit=crop&w=800&q=80');
+        }
+        .testimonial-card:nth-child(3)::before {
+            background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80');
+        }
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+        .card-header {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            margin-bottom: 20px; 
+            transition: opacity 0.4s ease;
+        }
+        .testimonial-card:hover .card-header,
+        .testimonial-card:hover .testimonial-text,
+        .testimonial-card:hover .author-name {
+            opacity: 0;
+        }
+        .star-rating { 
+            display: flex; 
+            gap: 4px; 
+            font-size: 1.1em; 
+        }
+        .star-rating .star { color: #FFC107; } 
+        .star-rating .star.empty { color: var(--light-gray-border); }
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border: 3px solid var(--page-bg-color);
+        }
+        .testimonial-text {
+            position: relative;
+            z-index: 1;
+            font-size: 1em; 
+            line-height: 1.7;
+            color: var(--secondary-color);
+            margin-bottom: auto; 
+            padding-bottom: 20px; 
+            font-style: italic;
+            flex-grow: 1; 
+            transition: opacity 0.4s ease;
+        }
+        .testimonial-text::before {
+            content: none !important;
+        }
+        .author-name {
+            position: relative;
+            z-index: 1;
+            font-size: 1.05em;
+            font-weight: 700;
+            color: var(--hero-navy);
+            font-family: var(--heading-font);
+            text-align: right; 
+            margin-top: 15px; 
+            padding-top: 15px; 
+            border-top: 1px solid var(--light-gray-border); 
+            transition: opacity 0.4s ease;
+        }
+        @media (max-width: 768px) {
+            .testimonial-card::before {
+                display: none;
+            }
+            .testimonial-card:hover .card-header,
+            .testimonial-card:hover .testimonial-text,
+            .testimonial-card:hover .author-name {
+                opacity: 1;
+            }
+             .testimonials-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+            }
+        }
+
+
+        /* Pricing Section */
+        .pricing { text-align: center; }
+        .pricing .section-title-main { /* Handled by h2.section-title-main */ }
+        .pricing .section-subtitle {
+            font-size: 1.1em;
+            color: var(--secondary-color);
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+            line-height: 1.7;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 0; 
+        }
+        .pricing-card {
+            background-color: var(--card-bg-color); 
+            border-radius: 10px; /* More rounded */
+            border: 1px solid var(--light-gray-border);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Softer shadow */
+            display: flex;
+            flex-direction: column;
+            text-align: left; 
+            overflow: hidden; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px); /* More lift */
+            box-shadow: 0 10px 35px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
+        }
+        .pricing-card-header {
+            background-color: var(--hero-navy); 
+            padding: 30px 30px 25px; /* Adjusted padding */
+            text-align: center; 
+        }
+        .pricing-card .icon {
+            font-size: 2.8em; 
+            color: var(--white-text); 
+            margin-bottom: 15px; /* Increased margin */
+            line-height: 1;
+        }
+        .pricing-card .icon svg { 
+            width: 45px; height: 45px; fill: var(--white-text); /* Slightly larger icon */
+        }
+        .pricing-card-header h3 { 
+            color: var(--white-text); 
+            font-size: 1.5em; /* Slightly larger */
+            font-weight: 700;
+            margin-bottom: 0;
+            font-family: var(--heading-font);
+        }
+        .pricing-card-body {
+            padding: 30px; /* Uniform padding */
+            background-color: var(--card-bg-light-green); 
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+        }
+        .pricing-card .price {
+            font-size: 2em; /* Reduced from 2.5em */
+            font-weight: 700; 
+            color: var(--hero-charcoal);
+            margin-bottom: 0.8rem; /* Reduced from 10px */
+            text-align: center;
+            font-family: var(--heading-font); /* Consistent heading font */
+        }
+        .pricing-card .price span { 
+            font-size: 0.55em; /* Adjusted size */
+            font-weight: 400; 
+            color: var(--secondary-color);
+            display: block; 
+            line-height: 1.3;
+            font-family: var(--text-font); /* Text font for subtitle */
+        }
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0; /* Increased margin */
+            text-align: left;
+            width: 100%;
+            color: var(--secondary-color);
+            font-size: 0.95em;
+        }
+        .pricing-card ul li {
+            margin-bottom: 0.8rem; /* Reduced from 12px */
+            display: flex;
+            align-items: flex-start; 
+            line-height: 1.4;
+            font-size: 0.9em; /* Added smaller font size */
+        }
+        .pricing-card ul li::before { 
+            content: '✓';
+            color: var(--primary-color); 
+            margin-right: 12px; /* Increased spacing */
+            font-weight: bold;
+            font-size: 1.1em;
+            line-height: 1.4; 
+        }
+        .pricing-card .btn { /* Uses Marík's generic .btn styles */
+            margin-top: auto; 
+            width: 100%; 
+            text-align: center;
+        }
+        .pricing-card.highlighted {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.15);
+            border-color: var(--hero-gold);
+        }
+        .pricing-card.highlighted .pricing-card-header {
+            background-color: var(--hero-gold); 
+        }
+        @media (max-width: 768px) {
+            .pricing .section-title-main { font-size: 1.8em; }
+            .pricing .section-subtitle { font-size: 1em; margin-bottom: 30px; }
+            .pricing-card .price {font-size: 1.8em;}
+            .pricing-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller mobile */
+            }
+        }
+
+        /* Contact Section */
+        .contact { /* background-color from section */ }
+        .contact-header { 
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 40px; 
+            justify-content: center; 
+        }
+        .contact-number-prefix { 
+            color: #e0e0e0; /* Lighter gray */
+            font-size: 3.2em; /* Reduced from 4em */
+            font-weight: 700;
+            line-height: 1;
+            font-family: var(--heading-font);
+        }
+        .contact-header h2 { /* Section title */
+            color: var(--hero-navy);
+            font-size: 2.2em; /* Reduced from 2.8em */
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+            font-family: var(--heading-font);
+            align-self: flex-end;
+            text-align: center; /* Match section title style */
+        }
+        .contact-content {
+            display: flex;
+            gap: 40px; 
+            background-color: var(--card-bg-color); 
+            padding: 40px; 
+            border-radius: 10px; /* More rounded */
+            box-shadow: 0 5px 25px rgba(0,0,0,0.07); /* Softer shadow */
+            border: 1px solid var(--light-gray-border);
+        }
+        .contact-info { flex: 1; }
+        .contact-info h3 { 
+            color: var(--hero-charcoal); 
+            font-size: 1.3em; /* Reduced from 1.4em */
+            font-weight: 700;
+            margin-bottom: 1.2rem; /* Reduced from 25px */
+            font-family: var(--heading-font);
+        }
+        .contact-info p { margin-bottom: 1.2rem; font-size: 0.95em; line-height: 1.6;}
+        .contact-info .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem; /* Reduced from 20px */
+            font-size: 0.95em; 
+            color: var(--secondary-color);
+        }
+        .contact-info .info-item i, /* Targeting FontAwesome icons */
+        .contact-info .info-item svg { /* Targeting inline SVGs if used */
+            width: 24px; height: 24px; /* Slightly larger icon */
+            fill: var(--hero-navy); /* For SVG */
+            color: var(--hero-navy); /* For FontAwesome */
+            margin-right: 18px; /* Increased spacing */
+            flex-shrink: 0;
+        }
+        .contact-info .info-item a {
+            color: var(--secondary-color);
+            transition: color 0.3s ease, letter-spacing 0.3s ease;
+            font-weight: 500;
+        }
+        .contact-info .info-item a:hover { color: var(--hero-navy); letter-spacing: 0.5px; }
+        .contact-form { flex: 1.5; }
+        .contact-form .form-group { margin-bottom: 20px; }
+        .contact-form label { 
+            display: block; margin-bottom: 8px; font-weight: 600; 
+            color: var(--secondary-color); font-size: 0.9em;
+        }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            width: 100%; padding: 14px 18px; /* Increased padding */
+            border: 1px solid var(--light-gray-border); 
+            border-radius: 6px; /* More rounded */
+            box-sizing: border-box;
+            font-family: var(--text-font); font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+            border-color: var(--hero-navy); 
+            outline: none; 
+            box-shadow: 0 0 0 3px rgba(8, 11, 1, 0.2); /* Focus ring with hero-navy */
+        }
+        .contact-form textarea { resize: vertical; min-height: 130px; /* Increased height */ }
+        .contact-form .btn-primary { /* Uses Marík's .btn-primary */
+            width: 100%; font-size: 1.05em; padding: 15px 25px; /* Increased padding */
+        }
+        @media (max-width: 992px) {
+            .contact-content { flex-direction: column; padding: 30px; }
+        }
+        @media (max-width: 768px) {
+            .contact-header { flex-direction: column; text-align: center; gap: 5px; align-items: center; margin-bottom: 30px;}
+            .contact-number-prefix { font-size: 2.8em; } /* Reduced from 3.5em */
+            .contact-header h2 { font-size: 1.8em; } /* Reduced from 2.2em */
+            .contact-content { padding: 25px; } /* Adjusted */
+            .contact-info { text-align: center; }
+            .contact-info .info-item { justify-content: center; }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--hero-charcoal);
+            color: var(--hero-gold-light);
+            text-align: center;
+            padding: 40px 20px; /* Increased padding */
+        }
+        footer p { margin: 8px 0; font-size: 0.9em; line-height: 1.6; }
+        footer a { 
+            color: var(--hero-gold-light); /* Changed to hero-gold-light for better initial visibility */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+        footer a:hover { 
+            color: var(--hero-white); /* Brighter hover for footer links */
+            text-decoration: underline; 
+        }
+
+        /* Running Text (Marquee) Section - Infinite and Smaller */
+        .running-text-section {
+            background: var(--hero-charcoal);
+            padding: 0;
+            overflow: hidden;
+            border-top: 1px solid var(--hero-gold-light);
+            border-bottom: 1px solid var(--hero-gold-light);
+        }
+        .running-text-wrapper {
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            height: 44px;
+            display: flex;
+            align-items: center;
+        }
+        .running-text {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--heading-font);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--white-text);
+            letter-spacing: 0.04em;
+            animation: marquee-infinite 18s linear infinite;
+        }
+        .running-text span {
+            display: inline-block;
+            padding-right: 2.5rem;
+        }
+        @keyframes marquee-infinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @media (max-width: 768px) {
+            .running-text-wrapper { height: 32px; }
+            .running-text { font-size: 0.92rem; }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            align-items: center; /* Vertically center modal content */
+            justify-content: center; /* Horizontally center modal content */
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: var(--card-bg-color);
+            margin: 20px; /* Use margin for spacing, not fixed top/left */
+            padding: 0;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-20px) scale(0.95); /* Initial state for animation */
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Added opacity transition */
+            z-index: 10000;
+            overflow: hidden;
+            opacity: 0; /* Initial state for animation */
+            max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
+            display: flex; /* For internal scrolling if content is too tall */
+            flex-direction: column;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            position: relative;
+            padding: 35px 40px;
+            border-bottom: 1px solid var(--light-gray-border);
+            background-color: var(--card-bg-color);
+            flex-shrink: 0; /* Prevent header from shrinking */
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 35px;
+            height: 35px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10001;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-close::before,
+        .modal-close::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--hero-navy);
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close::before {
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .modal-close::after {
+            transform: translateY(-50%) rotate(-45deg);
+        }
+
+
+        .modal-close:hover::before,
+        .modal-close:hover::after {
+            background-color: var(--hero-gold);
+        }
+
+        .modal-body {
+            padding: 40px;
+            background-color: var(--card-bg-color);
+            overflow-y: auto; /* Allow body to scroll if content is too tall */
+            flex-grow: 1; /* Allow body to take available space */
+        }
+
+        .modal-title {
+            font-family: var(--heading-font);
+            font-size: 2.2em;
+            color: var(--hero-navy);
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+
+        .modal-subtitle {
+            font-size: 1.15em;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .modal-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.02);
+        }
+
+        .modal-description {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: var(--secondary-color);
+            margin-bottom: 35px;
+            padding: 0 10px;
+        }
+
+        .modal-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .modal-feature {
+            background-color: var(--hero-off-white);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .modal-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .modal-feature i {
+            font-size: 2em;
+            color: var(--hero-navy);
+            margin-bottom: 15px;
+        }
+
+        .modal-feature h4 {
+            font-family: var(--heading-font);
+            color: var(--hero-navy);
+            margin: 0 0 12px 0;
+            font-size: 1.2em;
+        }
+
+        .modal-feature p {
+            font-size: 0.95em;
+            color: var(--secondary-color);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .modal-pricing {
+            background-color: var(--hero-off-white);
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-pricing h3 {
+            font-family: var(--heading-font);
+            color: var(--hero-navy);
+            margin: 0 0 25px 0;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .modal-pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .modal-price-item {
+            text-align: center;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-price-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .modal-price-item h4 {
+            font-family: var(--heading-font);
+            color: var(--hero-navy);
+            margin: 0 0 15px 0;
+            font-size: 1.1em;
+        }
+
+        .modal-price-item .price {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--hero-navy);
+            margin-bottom: 8px;
+        }
+
+        .modal-price-item .duration {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        .modal-cta {
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .modal-cta .btn {
+            padding: 16px 45px;
+            font-size: 1.15em;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-cta .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 20px auto; /* Keep centered */
+                width: 95%;
+                max-height: 85vh; /* Adjust max height for smaller screens */
+            }
+
+            .modal-header {
+                padding: 25px;
+            }
+
+            .modal-body {
+                padding: 25px;
+            }
+
+            .modal-title {
+                font-size: 1.8em;
+            }
+            .modal-subtitle {
+                font-size: 1em;
+            }
+
+            .modal-images {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .modal-image {
+                height: 180px;
+            }
+
+            .modal-features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .modal-feature { padding: 20px; }
+
+
+            .modal-pricing {
+                padding: 25px;
+            }
+
+            .modal-pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-price-item {
+                padding: 20px;
+            }
+            .modal-cta .btn {
+                padding: 14px 30px;
+                font-size: 1em;
+            }
+        }
+
+        /* Section Header with Number Styling (replaces .about-header, .contact-header specific parts) */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center; /* Default to center for most sections */
+        }
+        /* For left-aligned headers like in .about */
+        .section-header.align-left {
+            justify-content: flex-start;
+        }
+        .section-header .section-number {
+            color: #e0e0e0;
+            font-size: 3.2em;
+            font-weight: 700;
+            line-height: 1;
+            font-family: var(--heading-font);
+        }
+        .section-header h2 { /* This is the main title in the section-header */
+            color: var(--hero-navy);
+            font-size: 2.2em;
+            font-weight: 700;
+            margin: 0; /* Reset margin if it's inside .section-header */
+            line-height: 1.1;
+            font-family: var(--heading-font);
+            align-self: flex-end;
+            /* text-align: center; removed to allow for left align */
+        }
+         /* Override for About section's specific h2 if it's not using section-title-main */
+        .about .about-header h2 { text-align: left; }
+
+
+        @media (max-width: 992px) { /* For About section responsiveness */
+             .about .section-header.align-left {
+                justify-content: center;
+             }
+             .about .section-header.align-left h2 {
+                 text-align: center;
+             }
+        }
+
+        @media (max-width: 768px) {
+            .section-header,
+            .section-header h2,
+            .about-header,
+            .about-header h2 {
+                text-align: center !important;
+                justify-content: center !important;
+                align-items: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            .section-header {
+                flex-direction: column !important;
+                gap: 5px !important;
+            }
+            .about-header {
+                flex-direction: column !important;
+                gap: 5px !important;
+            }
+            .about-header h2, .section-header h2 {
+                width: 100%;
+                display: block;
+            }
+            .section-header .section-number {
+                font-size: 2.8em;
+            }
+            .section-header h2 {
+                font-size: 1.8em;
+                text-align: center !important; /* Ensure centered on mobile */
+            }
+        }
+
+        /* Process (Step-by-step) Section Styles */
+        .process-section {
+            background: var(--page-bg-color);
+            padding: 80px 0;
+        }
+        .process-timeline {
+            position: relative;
+            margin: 0 auto;
+            max-width: 700px;
+            padding: 30px 0 0 0;
+        }
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 32px; /* Adjusted for icon size */
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--hero-navy);
+            opacity: 0.12;
+            z-index: 0;
+        }
+        .process-step {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            padding-left: 80px; /* Space for the number */
+        }
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+        .process-step-number {
+            position: absolute;
+            left: 0; 
+            top: 0;
+            width: 56px; 
+            height: 56px;
+            background: var(--card-bg-color);
+            border: 3px solid var(--hero-navy);
+            color: var(--hero-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            z-index: 2;
+            transition: background 0.2s, color 0.2s;
+        }
+        .process-step-content {
+            padding-top: 2px; /* Align with top of number circle if needed */
+        }
+        .process-step-content h3 {
+            font-size: 1.25em;
+            color: var(--hero-navy);
+            font-family: var(--heading-font);
+            font-weight: 700;
+            margin: 0 0 8px 0;
+        }
+        .process-step-content p {
+            font-size: 1em;
+            color: var(--secondary-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+        @media (max-width: 600px) {
+            .process-timeline {
+                padding-left: 0; 
+            }
+            .process-timeline::before {
+                left: 20px; /* Adjust line position */
+            }
+            .process-step {
+                padding-left: 60px; /* Space for smaller number */
+            }
+            .process-step-number {
+                width: 38px;
+                height: 38px;
+                font-size: 1em;
+                left: 0;
+            }
+        }
+
+        /* Process Section - 2 Column Timeline (Dark & Light versions) */
+        .process-section-dark { background: #101010; }
+        .process-section-match { background: var(--page-bg-color); }
+
+        .process-timeline-2col {
+            position: relative;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 60px 0 0 0;
+        }
+        .process-timeline-center-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--hero-navy); /* Default to light theme color */
+            opacity: 0.10;
+            z-index: 0;
+            transform: translateX(-50%);
+        }
+        .process-section-dark .process-timeline-center-line {
+            background: #333; /* Dark theme line color */
+            opacity: 0.6;
+        }
+
+        .process-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch; /* Ensure boxes in a row can have different heights but align properly */
+            margin-bottom: 48px;
+            position: relative;
+        }
+        .process-row.last { margin-bottom: 0; }
+
+        .process-step-box {
+            width: 46%;
+            min-height: 140px;
+            border-radius: 14px;
+            display: flex;
+            align-items: flex-start; /* Changed from center to flex-start */
+            position: relative;
+            z-index: 2;
+            transition: box-shadow 0.3s;
+            margin-bottom: 0;
+        }
+        /* Light theme box */
+        .process-section-match .process-step-box {
+            background: var(--card-bg-color);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+            color: var(--secondary-color);
+            border: 1px solid var(--light-gray-border);
+        }
+        /* Dark theme box */
+        .process-section-dark .process-step-box {
+            background: #232323;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            color: #fff;
+        }
+
+        .process-step-box.left { justify-content: flex-start; } /* Changed from flex-end */
+        .process-step-box.right { justify-content: flex-start; }
+        
+        .process-step-box.empty { background: none !important; box-shadow: none !important; border: none !important; }
+
+        .step-content {
+            padding: 32px;
+            position: relative;
+            width: 100%;
+            font-family: var(--text-font);
+        }
+        .process-step-box.left .step-content { text-align: left; } /* Changed from right */
+        .process-step-box.right .step-content { text-align: left; }
+
+        .step-title {
+            font-family: var(--heading-font);
+            font-size: 1.18em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.01em;
+        }
+        .process-section-match .step-title { color: var(--hero-navy); }
+        .process-section-dark .step-title { color: #fff; }
+
+        .step-desc {
+            font-size: 1em;
+            margin-bottom: 0;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        .process-section-match .step-desc { color: var(--secondary-color); }
+        .process-section-dark .step-desc { color: #d0d0d0; }
+
+        .step-number {
+            font-size: 2.2em;
+            font-weight: 700;
+            opacity: 0.13;
+            position: absolute;
+            top: 20px; /* Changed from 28px to move it higher */
+            right: 24px; /* Changed from 32px to move it closer to the right corner */
+            font-family: var(--heading-font);
+        }
+        .process-section-match .step-number { color: var(--hero-navy); }
+        .process-section-dark .step-number { color: #fff; }
+
+        /* Remove the left/right specific number positioning */
+        .process-step-box.left .step-number { right: 32px; }
+        .process-step-box.right .step-number { right: 32px; }
+
+        @media (max-width: 900px) {
+            .process-timeline-2col { padding: 30px 0 0 0; }
+            .process-row { flex-direction: column; margin-bottom: 0; }
+            .process-step-box { 
+                width: 100%; 
+                margin-bottom: 24px;
+            }
+            .process-step-box.left, .process-step-box.right {
+                justify-content: flex-start;
+            }
+            .process-step-box.left .step-content, 
+            .process-step-box.right .step-content {
+                text-align: left;
+            }
+            .process-step-box.left .step-number,
+            .process-step-box.right .step-number {
+                right: 32px;
+            }
+
+            .process-step-box.empty { display: none; }
+            .process-timeline-center-line { left: 20px; width: 2px; transform: translateX(0); }
+        }
+        @media (max-width: 600px) {
+            .process-timeline-2col { padding: 10px 0 0 0; }
+            .step-content { padding: 24px; }
+            .step-number { 
+                font-size: 1.8em;
+                top: 15px; /* Changed from 18px to move it higher on mobile */
+                right: 20px; /* Changed from 24px to move it closer to the right corner on mobile */
+            }
+        }
+
+        /* CSS for Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            will-change: opacity, transform; /* Performance hint */
+        }
+
+        .aos-fade-in {
+            opacity: 0;
+        }
+        .aos-fade-in.is-visible {
+            opacity: 1;
+        }
+
+        .aos-fade-up {
+            transform: translateY(40px);
+        }
+        .aos-fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .aos-fade-down {
+            transform: translateY(-40px);
+        }
+        .aos-fade-down.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .aos-fade-left { /* Slides in from the right */
+            transform: translateX(40px);
+        }
+        .aos-fade-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .aos-fade-right { /* Slides in from the left */
+            transform: translateX(-40px);
+        }
+        .aos-fade-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .aos-zoom-in {
+            transform: scale(0.9);
+        }
+        .aos-zoom-in.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Add this CSS in the style section */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--hero-navy);
+            color: var(--hero-gold-light);
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-3px);
+            background-color: var(--hero-gold);
+            color: var(--hero-navy);
+        }
+        .social-link i {
+            font-size: 1.2em;
+        }
+        @media (max-width: 768px) {
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Loading Screen Overlay */
+        #loading-overlay {
+            position: fixed;
+            z-index: 99999;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+            background: #fff; /* White background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.5s;
+        }
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .loading-image {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 32px;
+        }
+        .loading-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111; /* Black text */
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .loading-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: #222; /* Black text */
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            text-transform: lowercase;
+        }
+        .loading-line {
+            width: 80px;
+            height: 2px;
+            background: #111; /* Black line */
+            margin: 0 auto 24px auto;
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+        .loading-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: #111; /* Black text */
+            opacity: 0.85;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .loading-image { width: 80px; height: 80px; }
+            .loading-title { font-size: 1.5rem; }
+            .loading-subtitle { font-size: 0.9rem; }
+            .loading-line { width: 50px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-content">
+            <img src="https://i.postimg.cc/nLzvsm94/Sn-mek-obrazovky-2025-06-11-001100.png" alt="Loading Logo" class="loading-image">
+            <div class="loading-title">Miloš Mařík</div>
+            <div class="loading-subtitle">osobní trenér</div>
+            <div class="loading-line"></div>
+            <div class="loading-text">Načítání...</div>
+        </div>
+    </div>
+
+    <header> <div class="logo">
+            <div class="logo-text">
+                <span class="logo-name">ŠORALOVÁ</span> <span class="logo-tagline">advokátní kancelář</span>
+            </div>
+        </div>
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#hero" class="nav-link active">ÚVOD</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">O MNĚ</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">SLUŽBY</a></li>
+                <li class="nav-item"><a href="#process" class="nav-link">PROCES</a></li>
+                <li class="nav-item"><a href="#pricing" class="nav-link">CENÍK</a></li>
+                <li class="nav-item"><a href="#testimonials" class="nav-link">REFERENCE</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">KONTAKT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="hero-subtitle animate-on-scroll aos-fade-up">Osobní trenér</span>
+                    <h1 class="hero-title animate-on-scroll aos-fade-up" style="transition-delay: 0.1s;">Profesionální tréninkové služby</h1>
+                    <p class="hero-description animate-on-scroll aos-fade-up" style="transition-delay: 0.2s;">
+                        Věřím, že každý má právo na kvalitní trénink a osobní rozvoj. Nabízím profesionální služby za optimální cenu,flexibilitu a snahu o nalezení nejlepšího řešení pro vaše fitness cíle.
+                    </p>
+                    <div class="hero-cta-buttons animate-on-scroll aos-fade-up" style="transition-delay: 0.3s;">
+                        <a href="#services" class="btn">Moje služby</a>
+                        <a href="#contact" class="btn btn-reversed">Kontaktujte mě</a>
+                    </div>
+                </div>
+                <div class="hero-image animate-on-scroll aos-fade-left" style="transition-delay: 0.2s;">
+                    <img src="https://i.postimg.cc/gj2xkwTy/Hero-MM.jpg" alt="Personal Training Services">
+                </div>
+            </div>
+        </section>
+
+        <section class="running-text-section">
+            <div class="running-text-wrapper">
+                <div class="running-text">
+                    <span>Podloženo vědou &bull; Jednoduchost &bull; Vyladěno zkušenostmi &bull; Praktičnost &bull; Podloženo vědou &bull; Jednoduchost &bull; Vyladěno zkušenostmi &bull; Praktičnost &bull; Podloženo vědou &bull; Jednoduchost &bull;</span>
+                    <span>Podloženo vědou &bull; Jednoduchost &bull; Vyladěno zkušenostmi &bull; Praktičnost &bull; Podloženo vědou &bull; Jednoduchost &bull; Vyladěno zkušenostmi &bull; Praktičnost &bull; Podloženo vědou &bull; Jednoduchost &bull;</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <div class="section-header align-left animate-on-scroll aos-fade-up"> <span class="section-number">01</span>
+                            <h2>O Mně</h2>
+                        </div>
+                        <div class="about-description animate-on-scroll aos-fade-up" style="transition-delay: 0.1s;">
+                            <p>Jmenuji se Miloš Marík a jsem certifikovaný osobní trenér s vášní pro fitness a zdravý životní styl. Věřím, že každý může dosáhnout svých cílů s správným vedením a odhodláním. Mým posláním je inspirovat vás k pohybu, pomoci vám vybudovat silnější a zdravější tělo, a naučit vás, jak si udržet výsledky dlouhodobě.</p>
+                            <p>Specializuji se na silový trénink, funkční cvičení a formování postavy. Ke každému klientovi přistupuji individuálně, s ohledem na jeho cíle, možnosti a zdravotní stav.</p>
+                        </div>
+                        <div class="features-grid">
+                            <div class="feature-item animate-on-scroll aos-fade-up" style="transition-delay: 0.2s;">
+                                <div class="feature-icon"><i class="fas fa-user-check"></i></div>
+                                <div class="feature-content">
+                                    <h3>Individuální Přístup</h3>
+                                    <p>Tréninkové plány a konzultace sestavené přesně na míru vašim potřebám a cílům.</p>
+                                </div>
+                            </div>
+                            <div class="feature-item animate-on-scroll aos-fade-up" style="transition-delay: 0.3s;">
+                                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                                <div class="feature-content">
+                                    <h3>Motivace a Výsledky</h3>
+                                    <p>Pomohu vám udržet si motivaci a společně dosáhneme viditelných a udržitelných výsledků.</p>
+                                </div>
+                            </div>
+                            <div class="feature-item animate-on-scroll aos-fade-up" style="transition-delay: 0.4s;">
+                                 <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                                <div class="feature-content">
+                                    <h3>Flexibilita</h3>
+                                    <p>Tréninky dle vašich časových možností, ve fitcentru, u vás doma nebo online.</p>
+                                </div>
+                            </div>
+                            <div class="feature-item animate-on-scroll aos-fade-up" style="transition-delay: 0.5s;">
+                                <div class="feature-icon"><i class="fas fa-heartbeat"></i></div>
+                                <div class="feature-content">
+                                    <h3>Komplexní Podpora</h3>
+                                    <p>Poradenství v oblasti výživy a zdravého životního stylu pro maximální efektivitu.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image-container animate-on-scroll aos-fade-left" style="transition-delay: 0.2s;">
+                        <div class="about-image-placeholder">
+                            <img src="https://i.postimg.cc/t4p92gZj/About-MM.jpg" alt="Miloš Marík - Osobní Trenér">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header animate-on-scroll aos-fade-up">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title-main">Co pro Vás mohu udělat</h2>
+                </div>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" style="transition-delay: 0.1s;">Nabízím širokou škálu služeb zaměřených na zlepšení vaší kondice, síly a celkového zdraví. Vyberte si tu pravou pro vás.</p>
+                <div class="services-grid">
+                    <div class="service-card animate-on-scroll aos-zoom-in" data-modal="personal-training" style="background-image: url('https://i.postimg.cc/hPDqF5sF/Handstand-MM.jpg'); transition-delay: 0.2s;">
+                        <div class="service-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.18)"/><path d="M7 17L17 7M17 7H7M17 7V17" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Osobní Trénink</h3>
+                            <p>Individuální lekce 1 na 1, zaměřené na vaše konkrétní cíle, ať už jde o hubnutí, nabírání svalů nebo zlepšení kondice.</p>
+                        </div>
+                    </div>
+                    <div class="service-card animate-on-scroll aos-zoom-in" data-modal="training-plans" style="background-image: url('https://i.postimg.cc/7P0wgzs6/Idk-MM.jpg'); transition-delay: 0.3s;">
+                        <div class="service-arrow">
+                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.18)"/><path d="M7 17L17 7M17 7H7M17 7V17" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Tréninkové Plány</h3>
+                            <p>Detailní a personalizované tréninkové plány pro cvičení v posilovně nebo z pohodlí vašeho domova.</p>
+                        </div>
+                    </div>
+                    <div class="service-card animate-on-scroll aos-zoom-in" data-modal="nutrition" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80'); transition-delay: 0.4s;">
+                        <div class="service-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.18)"/><path d="M7 17L17 7M17 7H7M17 7V17" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Výživové Poradenství</h3>
+                            <p>Pomoc s nastavením optimálního jídelníčku, který podpoří vaše tréninkové výsledky a zdraví.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="process-section process-section-match">
+            <div class="container">
+                <div class="section-header animate-on-scroll aos-fade-up">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title-main">Jak probíhá spolupráce</h2>
+                </div>
+                <div class="process-timeline-2col">
+                    <div class="process-row">
+                        <div class="process-step-box left animate-on-scroll aos-fade-right">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Konzultace a Analýza</div>
+                                <div class="step-desc">Probereme vaše cíle, zdravotní stav a dosavadní zkušenosti. Zjistím, co je pro vás důležité a jak vám mohu nejlépe pomoci.</div>
+                            </div>
+                        </div>
+                        <div class="process-step-box right empty"></div>
+                    </div>
+                    <div class="process-row">
+                        <div class="process-step-box left empty"></div>
+                        <div class="process-step-box right animate-on-scroll aos-fade-left" style="transition-delay: 0.1s;">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Plánování a Strategie</div>
+                                <div class="step-desc">Připravím individuální tréninkový a výživový plán na míru vašim potřebám a možnostem.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-row">
+                        <div class="process-step-box left animate-on-scroll aos-fade-right" style="transition-delay: 0.2s;">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Začátek Spolupráce</div>
+                                <div class="step-desc">Společně zahájíme tréninky nebo nastavíme plán. Vysvětlím vám vše potřebné a odpovím na vaše dotazy.</div>
+                            </div>
+                        </div>
+                        <div class="process-step-box right empty"></div>
+                    </div>
+                    <div class="process-row">
+                        <div class="process-step-box left empty"></div>
+                        <div class="process-step-box right animate-on-scroll aos-fade-left" style="transition-delay: 0.3s;">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Pravidelná Podpora</div>
+                                <div class="step-desc">Průběžně sleduji váš pokrok, upravuji plán a motivuji vás k dosažení nejlepších výsledků.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-row last">
+                        <div class="process-step-box left animate-on-scroll aos-fade-right" style="transition-delay: 0.4s;">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Vyhodnocení a Další Rozvoj</div>
+                                <div class="step-desc">Společně zhodnotíme výsledky a nastavíme další kroky pro váš dlouhodobý úspěch.</div>
+                            </div>
+                        </div>
+                        <div class="process-step-box right empty"></div>
+                    </div>
+                    <div class="process-timeline-center-line animate-on-scroll aos-fade-in"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <div class="container testimonials-container">
+                <div class="section-header animate-on-scroll aos-fade-up">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Co o mně říkají klienti</h2>
+                </div>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" style="transition-delay: 0.1s;">Spokojenost mých klientů je pro mě největší odměnou. Přečtěte si jejich zkušenosti.</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card animate-on-scroll aos-fade-up" style="transition-delay: 0.2s;">
+                        <div class="card-header">
+                            <div class="star-rating">
+                                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80" alt="Klient 1" class="profile-image">
+                        </div>
+                        <div class="testimonial-text">Díky Milošovi jsem konečně pochopil, jak správně cvičit a stravovat se. Výsledky na sebe nenechaly dlouho čekat!</div>
+                        <div class="author-name">Petr Novák</div>
+                    </div>
+                    <div class="testimonial-card animate-on-scroll aos-fade-up" style="transition-delay: 0.3s;">
+                        <div class="card-header">
+                            <div class="star-rating">
+                                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29433?auto=format&fit=crop&w=100&h=100&q=80" alt="Klientka 2" class="profile-image">
+                        </div>
+                        <div class="testimonial-text">Nejlepší trenér, kterého jsem kdy měla. Vždycky mě dokáže namotivovat a tréninky s ním jsou zábavné a efektivní. Mám mnohem více energie a cítím se skvěle ve svém těle.</div>
+                        <div class="author-name">Jana Svobodová</div>
+                    </div>
+                    <div class="testimonial-card animate-on-scroll aos-fade-up" style="transition-delay: 0.4s;">
+                        <div class="card-header">
+                            <div class="star-rating">
+                                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star empty">&#9734;</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" alt="Klient 3" class="profile-image">
+                        </div>
+                        <div class="testimonial-text">Miloš mi pomohl nejen zhubnout, ale hlavně změnit můj pohled na cvičení. Cítím se skvěle a plný energie. Doporučuji!</div>
+                        <div class="author-name">Tomáš Dvořák</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <div class="section-header animate-on-scroll aos-fade-up">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title-main">Ceník služeb</h2>
+                </div>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" style="transition-delay: 0.1s;">Vyberte si balíček, který vám nejlépe vyhovuje, nebo mě kontaktujte pro individuální nabídku na míru.</p>
+                <div class="pricing-grid">
+                    <div class="pricing-card animate-on-scroll aos-zoom-in" style="transition-delay: 0.2s;">
+                        <div class="pricing-card-header">
+                            <div class="icon"><i class="fas fa-comments"></i></div>
+                            <h3>Úvodní Konzultace</h3>
+                        </div>
+                        <div class="pricing-card-body">
+                            <p class="price">Zdarma <span>(30-45 minut)</span></p>
+                            <ul>
+                                <li>Seznámení s vašimi cíli a očekáváními</li>
+                                <li>Základní pohybová diagnostika</li>
+                                <li>Návrh možné spolupráce a strategie</li>
+                                <li>Prostor pro vaše dotazy</li>
+                            </ul>
+                            <a href="#contact" class="btn btn-secondary">Rezervovat Termín</a>
+                        </div>
+                    </div>
+                    <div class="pricing-card highlighted animate-on-scroll aos-zoom-in" style="transition-delay: 0.3s;">
+                        <div class="pricing-card-header">
+                            <div class="icon"><i class="fas fa-user-ninja"></i></div>
+                            <h3>Osobní Trénink</h3>
+                        </div>
+                        <div class="pricing-card-body">
+                            <p class="price">od 800 Kč <span>/ lekce (60 min)</span></p>
+                            <ul>
+                                <li>Individuální trénink pod dohledem</li>
+                                <li>Pravidelná úprava tréninkového plánu</li>
+                                <li>Okamžitá zpětná vazba a korekce techniky</li>
+                                <li>Motivace a profesionální vedení</li>
+                            </ul>
+                            <a href="#contact" class="btn btn-primary">Chci Trénovat</a>
+                        </div>
+                    </div>
+                    <div class="pricing-card animate-on-scroll aos-zoom-in" style="transition-delay: 0.4s;">
+                        <div class="pricing-card-header">
+                            <div class="icon"><i class="fas fa-tags"></i></div>
+                            <h3>Měsíční Balíček</h3>
+                        </div>
+                        <div class="pricing-card-body">
+                            <p class="price">Individuální <span>dle rozsahu a frekvence</span></p>
+                            <ul>
+                                <li>Výhodnější cena za více lekcí</li>
+                                <li>Komplexní tréninkový program</li>
+                                <li>Základní výživové poradenství</li>
+                                <li>Pravidelná podpora a konzultace</li>
+                            </ul>
+                            <a href="#contact" class="btn btn-secondary">Vyžádat Nabídku</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header animate-on-scroll aos-fade-up">
+                    <span class="section-number">06</span>
+                    <h2>Kontaktujte Mě</h2>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info animate-on-scroll aos-fade-right">
+                        <h3>Máte dotaz nebo si chcete domluvit trénink?</h3>
+                        <p>Neváhejte mě kontaktovat telefonicky, e-mailem nebo prostřednictvím formuláře. Rád vám odpovím na všechny vaše otázky a domluvíme si první setkání.</p>
+                        <div class="info-item"><i class="fas fa-phone-alt"></i> <a href="tel:+420777123456">+420 777 123 456</a></div>
+                        <div class="info-item"><i class="fas fa-envelope"></i> <a href="mailto:milos.marik@email.cz">milos.marik@email.cz</a></div>
+                        <div class="info-item"><i class="fas fa-calendar-alt"></i> <span>Po - Pá: 8:00 - 20:00 (dle dohody)</span></div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i> <span>Praha a okolí</span>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://instagram.com" target="_blank" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" class="social-link">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="social-link">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <form class="contact-form animate-on-scroll aos-fade-left" action="#" method="POST" style="transition-delay: 0.1s;">
+                        <div class="form-group">
+                            <label for="name">Jméno a příjmení</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Váš e-mail</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Váš telefon (nepovinné)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Vaše zpráva</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Odeslat Zprávu</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="animate-on-scroll aos-fade-up">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Miloš Marík - Osobní Trenér. Všechna práva vyhrazena.</p>
+            <p>Webové stránky vytvořeny s péčí.</p>
+        </div>
+    </footer>
+
+    <div id="personal-training-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" aria-label="Close modal"></button>
+                <h2 class="modal-title">Osobní Trénink</h2>
+                <p class="modal-subtitle">Individuální přístup pro maximální výsledky</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-images">
+                    <img src="https://i.postimg.cc/hPDqF5sF/Handstand-MM.jpg" alt="Osobní trénink" class="modal-image">
+                    <img src="https://i.postimg.cc/7P0wgzs6/Idk-MM.jpg" alt="Trénink v akci" class="modal-image">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Výsledky tréninku" class="modal-image">
+                </div>
+                <div class="modal-description">
+                    <p>Osobní trénink je nejefektivnější způsob, jak dosáhnout vašich fitness cílů. Každá lekce je přizpůsobena vašim specifickým potřebám, úrovni kondice a cílům. Během tréninku se zaměřím na správnou techniku, postupně zvyšuji intenzitu a zajistím, že každý pohyb je proveden bezpečně a efektivně.</p>
+                </div>
+                <div class="modal-features">
+                    <div class="modal-feature">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Individuální Přístup</h4>
+                        <p>Tréninkový plán na míru vašim cílům a možnostem</p>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-dumbbell"></i>
+                        <h4>Profesionální Vedení</h4>
+                        <p>Korekce techniky a optimalizace každého cviku</p>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Měření Pokroku</h4>
+                        <p>Pravidelné hodnocení a úprava tréninkového plánu</p>
+                    </div>
+                </div>
+                <div class="modal-pricing">
+                    <h3>Ceník Osobního Tréninku</h3>
+                    <div class="modal-pricing-grid">
+                        <div class="modal-price-item">
+                            <h4>Jednotlivá Lekce</h4>
+                            <div class="price">800 Kč</div>
+                            <div class="duration">60 minut</div>
+                        </div>
+                        <div class="modal-price-item">
+                            <h4>Balíček 5 Lekcí</h4>
+                            <div class="price">3 500 Kč</div>
+                            <div class="duration">ušetříte 500 Kč</div>
+                        </div>
+                        <div class="modal-price-item">
+                            <h4>Balíček 10 Lekcí</h4>
+                            <div class="price">6 500 Kč</div>
+                            <div class="duration">ušetříte 1 500 Kč</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-cta">
+                    <a href="#contact" class="btn btn-primary">Rezervovat Trénink</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="training-plans-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" aria-label="Close modal"></button>
+                <h2 class="modal-title">Tréninkové Plány</h2>
+                <p class="modal-subtitle">Strukturované programy pro vaše cíle</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-images">
+                    <img src="https://i.postimg.cc/7P0wgzs6/Idk-MM.jpg" alt="Tréninkový plán" class="modal-image">
+                    <img src="https://i.postimg.cc/hPDqF5sF/Handstand-MM.jpg" alt="Cvičení podle plánu" class="modal-image">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Výsledky" class="modal-image">
+                </div>
+                <div class="modal-description">
+                    <p>Tréninkové plány jsou ideálním řešením pro ty, kteří chtějí cvičit samostatně, ale potřebují profesionální vedení. Každý plán je vytvořen na základě vašich cílů, úrovně kondice a dostupného vybavení. Plány zahrnují detailní popis cviků, technické instrukce a postupné zvyšování intenzity.</p>
+                </div>
+                <div class="modal-features">
+                    <div class="modal-feature">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h4>Detailní Plány</h4>
+                        <p>Komplexní tréninkové programy na míru</p>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-video"></i>
+                        <h4>Video Návody</h4>
+                        <p>Názorné ukázky správné techniky cviků</p>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-comments"></i>
+                        <h4>Pravidelné Konzultace</h4>
+                        <p>Měsíční hodnocení a úprava plánu</p>
+                    </div>
+                </div>
+                <div class="modal-pricing">
+                    <h3>Ceník Tréninkových Plánů</h3>
+                    <div class="modal-pricing-grid">
+                        <div class="modal-price-item">
+                            <h4>Měsíční Plán</h4>
+                            <div class="price">1 500 Kč</div>
+                            <div class="duration">4 týdny</div>
+                        </div>
+                        <div class="modal-price-item">
+                            <h4>3-Měsíční Plán</h4>
+                            <div class="price">3 900 Kč</div>
+                            <div class="duration">ušetříte 600 Kč</div>
+                        </div>
+                        <div class="modal-price-item">
+                            <h4>6-Měsíční Plán</h4>
+                            <div class="price">7 200 Kč</div>
+                            <div class="duration">ušetříte 1 800 Kč</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-cta">
+                    <a href="#contact" class="btn btn-primary">Objednat Plán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="nutrition-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" aria-label="Close modal"></button>
+                <h2 class="modal-title">Výživové Poradenství</h2>
+                <p class="modal-subtitle">Optimalizace stravy pro vaše cíle</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-images">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Výživové poradenství" class="modal-image">
+                    <img src="https://i.postimg.cc/hPDqF5sF/Handstand-MM.jpg" alt="Zdravá strava" class="modal-image">
+                    <img src="https://i.postimg.cc/7P0wgzs6/Idk-MM.jpg" alt="Výživový plán" class="modal-image">
+                </div>
+                <div class="modal-description">
+                    <p>Výživové poradenství je klíčovou součástí dosažení vašich fitness cílů. Společně vytvoříme stravovací plán, který bude odpovídat vašemu životnímu stylu, preferencím a cílům. Zaměříme se na optimální příjem živin, načasování jídel a celkovou kvalitu stravy.</p>
+                </div>
+                <div class="modal-features">
+                    <div class="modal-feature">
+                        <i class="fas fa-utensils"></i>
+                        <h4>Jídelní Plány</h4>
+                        <p>Personalizované stravovací plány na míru</p>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-calculator"></i>
+                        <h4>Makro Výpočty</h4>
+                        <p>Přesné výpočty příjmu živin</p>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-book"></i>
+                        <h4>Výživové Vzdělávání</h4>
+                        <p>Naučíte se správným stravovacím návykům</p>
+                    </div>
+                </div>
+                <div class="modal-pricing">
+                    <h3>Ceník Výživového Poradenství</h3>
+                    <div class="modal-pricing-grid">
+                        <div class="modal-price-item">
+                            <h4>Úvodní Konzultace</h4>
+                            <div class="price">500 Kč</div>
+                            <div class="duration">60 minut</div>
+                        </div>
+                        <div class="modal-price-item">
+                            <h4>Měsíční Plán</h4>
+                            <div class="price">1 200 Kč</div>
+                            <div class="duration">4 týdny</div>
+                        </div>
+                        <div class="modal-price-item">
+                            <h4>3-Měsíční Plán</h4>
+                            <div class="price">3 000 Kč</div>
+                            <div class="duration">ušetříte 600 Kč</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-cta">
+                    <a href="#contact" class="btn btn-primary">Kontaktovat Pro Konzultaci</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('header .nav-list a[href^="#"], .hero-cta-buttons a[href^="#"], .pricing-card a[href^="#contact"], .service-card a[href^="#contact"], .modal-cta a[href^="#contact"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const modalCurrentlyOpen = this.closest('.modal');
+
+
+                if (targetElement) {
+                    // Close modal if link is inside a modal and targets an outside section
+                    if(modalCurrentlyOpen && targetId.startsWith("#") && targetId.length > 1) {
+                        modalCurrentlyOpen.classList.remove('active');
+                        document.body.style.overflow = ''; // Restore body scroll
+                         // Delay scroll slightly to allow modal to close visually
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300); // 300ms matches modal transition
+                    } else {
+                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+
+
+                    if (this.closest('header .nav-list')) {
+                        document.querySelectorAll('header .nav-list a').forEach(link => link.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Set current year in footer
+        const currentYearElem = document.getElementById('currentYear');
+        if (currentYearElem) {
+            currentYearElem.textContent = new Date().getFullYear();
+        }
+
+
+        // Active link highlighting on scroll and header scroll effect
+        const sections = document.querySelectorAll('section[id]');
+        const headerNavLinks = document.querySelectorAll('header .nav-list a');
+        const header = document.querySelector('header');
+        let headerHeight = header ? header.offsetHeight : 70; // Initial header height
+
+        function updateHeaderHeight() {
+            if (header) {
+                 headerHeight = header.offsetHeight > 0 ? header.offsetHeight : 70;
+            }
+        }
+
+
+        window.addEventListener('scroll', () => {
+            updateHeaderHeight(); // Update in case it changes (e.g. scrolled class)
+            let currentSectionId = '';
+            const scrollThreshold = headerHeight + 70; 
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - scrollThreshold;
+                if (pageYOffset >= sectionTop) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            headerNavLinks.forEach(link => {
+                link.classList.remove('active');
+                const linkHref = link.getAttribute('href');
+                if (linkHref && linkHref.startsWith('#') && linkHref.length > 1) {
+                    if (linkHref.substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                }
+            });
+
+            // Special handling for hero section or if no section is active at the top
+            const heroSection = document.getElementById('hero');
+            if (heroSection) {
+                if (window.pageYOffset < (heroSection.offsetTop + heroSection.offsetHeight - scrollThreshold)) {
+                     if (currentSectionId === 'hero' || window.pageYOffset < (heroSection.offsetHeight / 2) ) {
+                        let isOtherActive = false;
+                        headerNavLinks.forEach(link => { if (link.classList.contains('active') && link.getAttribute('href') !== '#hero') isOtherActive = true; });
+                        if (!isOtherActive) {
+                            headerNavLinks.forEach(link => link.classList.remove('active'));
+                            const homeLink = document.querySelector('header .nav-list a[href="#hero"]');
+                            if (homeLink) homeLink.classList.add('active');
+                        }
+                    }
+                }
+            }
+            // Fallback if still no active link and near top
+            if (!document.querySelector('header .nav-list a.active') && window.pageYOffset < 200) {
+                 const homeLink = document.querySelector('header .nav-list a[href="#hero"]');
+                 if (homeLink) {
+                    headerNavLinks.forEach(link => link.classList.remove('active'));
+                    homeLink.classList.add('active');
+                 }
+            }
+
+
+            if (header) {
+                if (window.scrollY > 50) { 
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
+
+        function setActiveLinkOnLoad() {
+            updateHeaderHeight();
+            let currentHash = window.location.hash;
+            const heroSection = document.getElementById('hero');
+            const scrollThresholdOnLoad = headerHeight + 70;
+
+            if (!currentHash && heroSection && window.pageYOffset < (heroSection.offsetHeight / 2)) {
+                currentHash = '#hero'; 
+            } else if (!currentHash) { 
+                let currentSectionIdOnLoad = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - scrollThresholdOnLoad;
+                    if (pageYOffset >= sectionTop) {
+                        currentSectionIdOnLoad = section.getAttribute('id');
+                    }
+                });
+                if(currentSectionIdOnLoad) currentHash = '#' + currentSectionIdOnLoad;
+                else if (heroSection) currentHash = '#hero';
+            }
+
+            headerNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentHash) {
+                    link.classList.add('active');
+                }
+            });
+            if (!document.querySelector('header .nav-list a.active')) {
+                const homeLink = document.querySelector('header .nav-list a[href="#hero"]');
+                if (homeLink) homeLink.classList.add('active');
+            }
+        }
+        
+
+        // Update header logo and tagline for Miloš Marík & initial scroll/active link states
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoNameElement = document.querySelector('header .logo-name');
+            const logoTaglineElement = document.querySelector('header .logo-tagline');
+
+            if (logoNameElement) {
+                logoNameElement.textContent = 'MILOŠ MARÍK';
+            }
+            if (logoTaglineElement) {
+                logoTaglineElement.textContent = 'OSOBNÍ TRENÉR';
+            }
+            
+            updateHeaderHeight(); // Set initial header height
+            setActiveLinkOnLoad(); // Set active link based on hash or scroll position
+            window.dispatchEvent(new Event('scroll')); // Trigger scroll to apply header style and active link
+        });
+         window.addEventListener('load', () => { // Ensure all content loaded for accurate offsets
+            updateHeaderHeight();
+            setActiveLinkOnLoad();
+            window.dispatchEvent(new Event('scroll'));
+        });
+
+
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.modal-close');
+
+            serviceCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const modalId = card.getAttribute('data-modal') + '-modal';
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent body scroll when modal is open
+                    }
+                });
+            });
+
+            function closeModal(modal) {
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore body scroll
+                }
+            }
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closeModal(button.closest('.modal'));
+                });
+            });
+
+            modals.forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) { // Click on modal backdrop
+                        closeModal(modal);
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    modals.forEach(modal => {
+                        if (modal.classList.contains('active')) {
+                            closeModal(modal);
+                        }
+                    });
+                }
+            });
+        });
+
+        // Scroll Animation Intersection Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries, observerInstance) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observerInstance.unobserve(entry.target); // Animate only once
+                        }
+                    });
+                }, {
+                    threshold: 0.1 // Trigger when 10% of the element is visible (adjust as needed)
+                });
+
+                animatedElements.forEach(el => {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                // Simply make them visible
+                animatedElements.forEach(el => {
+                    el.classList.add('is-visible'); 
+                });
+            }
+        });
+
+        // Hide loading overlay after page load, but always show for at least 1.5s
+        (function() {
+            var overlay = document.getElementById('loading-overlay');
+            var minTime = 1500; // 1.5 seconds
+            var start = Date.now();
+            window.addEventListener('load', function() {
+                var elapsed = Date.now() - start;
+                var delay = Math.max(0, minTime - elapsed);
+                setTimeout(function() {
+                    if (overlay) {
+                        overlay.classList.add('hidden');
+                        setTimeout(function() { overlay.style.display = 'none'; }, 600);
+                    }
+                }, delay);
+            });
+        })();
+    </script>
+</body>
+</html>
